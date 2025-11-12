@@ -2,26 +2,312 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* ===== GitHub Color System ===== */
+    /* Background Colors */
+    --background: #0d1117;
+    --foreground: #e6edf3;
+
+    /* Card Colors */
+    --card: #161b22;
+    --card-foreground: #e6edf3;
+
+    /* Popover Colors */
+    --popover: #161b22;
+    --popover-foreground: #e6edf3;
+
+    /* Primary Brand Colors - GitHub Blue */
+    --primary: #2f81f7;
+    --primary-foreground: #ffffff;
+
+    /* Secondary Colors - GitHub Dark Gray */
+    --secondary: #21262d;
+    --secondary-foreground: #e6edf3;
+
+    /* Accent Colors - GitHub Hover Blue */
+    --accent: #58a6ff;
+    --accent-foreground: #ffffff;
+
+    /* Muted Colors */
+    --muted: #21262d;
+    --muted-foreground: #7d8590;
+
+    /* Destructive Colors - GitHub Red */
+    --destructive: #f85149;
+    --destructive-foreground: #ffffff;
+
+    /* Success Colors - GitHub Green */
+    --success: #238636;
+    --success-foreground: #ffffff;
+
+    /* Warning Colors - GitHub Orange */
+    --warning: #d29922;
+    --warning-foreground: #000000;
+
+    /* Border & Input */
+    --border: #30363d;
+    --border-muted: #21262d;
+    --input: #0d1117;
+    --ring: #2f81f7;
+
+    /* Radius */
+    --radius: 0.375rem;
+
+    /* ===== GitHub Gradients ===== */
+    --gradient-primary: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    --gradient-accent: linear-gradient(135deg, #2f81f7 0%, #8957e5 100%);
+    --gradient-success: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+
+    /* ===== GitHub Glassmorphism ===== */
+    --glass-bg: rgba(22, 27, 34, 0.8);
+    --glass-border: rgba(48, 54, 61, 0.5);
+
+    /* ===== GitHub-specific colors ===== */
+    --gh-canvas-default: #010409;
+    --gh-canvas-subtle: #161b22;
+    --gh-text-secondary: #7d8590;
+    --gh-text-tertiary: #8b949e;
+    --gh-text-link: #2f81f7;
+    --gh-text-link-hover: #58a6ff;
+    --gh-btn-primary-bg: #238636;
+    --gh-btn-primary-hover: #2ea043;
+    --gh-btn-secondary-bg: #21262d;
+    --gh-btn-secondary-hover: #30363d;
+    --gh-purple: #8957e5;
+    --gh-coral: #ff7b72;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+
+  /* ===== Typography Base ===== */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl md:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  h5 {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+
+  h6 {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+
+  /* ===== Smooth Scrolling ===== */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* ===== Selection Color - GitHub Blue ===== */
+  ::selection {
+    @apply bg-gh-primary-blue/30 text-foreground;
+  }
+
+  /* ===== Focus Visible - GitHub Style ===== */
+  :focus-visible {
+    @apply outline-none;
+    box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.3);
+  }
+
+  /* ===== Scrollbar Styling - GitHub Style ===== */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d1117;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 6px;
+    border: 2px solid #0d1117;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #30363d #0d1117;
+  }
+}
+
+@layer components {
+  /* ===== Gradient Text - GitHub Blue ===== */
+  .gradient-text {
+    @apply bg-gradient-to-r from-gh-primary-blue to-gh-hover-blue bg-clip-text text-transparent;
+  }
+
+  /* ===== Glassmorphism Card - GitHub Style ===== */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 24px rgba(1, 4, 9, 0.4);
+  }
+
+  /* ===== Gradient Backgrounds ===== */
+  .gradient-bg-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-bg-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-bg-success {
+    background: var(--gradient-success);
+  }
+
+  /* ===== Container Variants ===== */
+  .container-sm {
+    @apply mx-auto max-w-3xl px-4;
+  }
+
+  .container-md {
+    @apply mx-auto max-w-5xl px-4;
+  }
+
+  .container-lg {
+    @apply mx-auto max-w-7xl px-4;
+  }
+
+  /* ===== Section Spacing ===== */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* ===== GitHub-style Hover Effects ===== */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-200;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.3);
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  /* ===== GitHub Button Styles ===== */
+  .gh-btn-primary {
+    @apply rounded-md bg-success px-4 py-2 font-semibold text-white transition-colors duration-200 hover:bg-gh-btn-primary-hover focus:outline-none;
+    box-shadow: 0 0 0 0 rgba(35, 134, 54, 0);
+  }
+
+  .gh-btn-primary:hover {
+    box-shadow: 0 1px 0 0 #1f6feb;
+  }
+
+  .gh-btn-primary:focus {
+    box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.3);
+  }
+
+  .gh-btn-secondary {
+    @apply rounded-md border border-border bg-gh-btn-secondary-bg px-4 py-2 font-semibold text-foreground transition-colors duration-200 hover:bg-gh-btn-secondary-hover focus:outline-none;
+  }
+
+  .gh-btn-secondary:hover {
+    border-color: #58a6ff;
+  }
+
+  .gh-btn-secondary:focus {
+    box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.3);
+  }
+
+  /* ===== GitHub Link Style ===== */
+  .gh-link {
+    @apply text-gh-text-link transition-colors duration-150 hover:text-gh-text-link-hover;
+  }
+
+  /* ===== GitHub Card Style ===== */
+  .gh-card {
+    @apply rounded-lg border border-border bg-card p-6 shadow-gh-md transition-all duration-200;
+  }
+
+  .gh-card:hover {
+    border-color: #58a6ff;
+    box-shadow: 0 12px 28px rgba(1, 4, 9, 0.5);
+  }
+
+  /* ===== GitHub Badge Style ===== */
+  .gh-badge {
+    @apply inline-flex items-center rounded-full border border-border bg-gh-btn-secondary-bg px-3 py-1 text-xs font-medium text-gh-text-secondary;
+  }
+
+  /* ===== Accessibility Utilities ===== */
+  /* Screen reader only - visually hidden but accessible to screen readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Focus visible - enhanced focus indicator for keyboard navigation */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* Skip to content link - helps keyboard users skip navigation */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg;
   }
 }
