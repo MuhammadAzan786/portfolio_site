@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 /**
- * Google Analytics Component
- * Add your GA_MEASUREMENT_ID to .env.local:
- * NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+ * Google Analytics Page Tracker (needs Suspense boundary)
  */
-export function GoogleAnalytics() {
+function GoogleAnalyticsTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -20,10 +18,22 @@ export function GoogleAnalytics() {
     const url = pathname + searchParams.toString();
 
     // Track page view
-    window.gtag("config", GA_MEASUREMENT_ID, {
-      page_path: url,
-    });
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("config", GA_MEASUREMENT_ID, {
+        page_path: url,
+      });
+    }
   }, [pathname, searchParams]);
+
+  return null;
+}
+
+/**
+ * Google Analytics Component
+ * Add your GA_MEASUREMENT_ID to .env.local:
+ * NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+ */
+export function GoogleAnalytics() {
 
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -47,6 +57,9 @@ export function GoogleAnalytics() {
           `,
         }}
       />
+      <Suspense fallback={null}>
+        <GoogleAnalyticsTracker />
+      </Suspense>
     </>
   );
 }
