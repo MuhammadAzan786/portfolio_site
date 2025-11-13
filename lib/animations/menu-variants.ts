@@ -9,14 +9,14 @@ export const overlayVariants = {
     opacity: 0,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   },
   open: {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   },
 };
@@ -27,14 +27,14 @@ export const mobileOverlayVariants = {
     opacity: 0,
     transition: {
       duration: 0.3,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   },
   open: {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     },
   },
 };
@@ -51,7 +51,7 @@ export const linkVariants = {
     transition: {
       delay: 0.2 + i * 0.05,
       duration: 0.4,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   }),
 };
@@ -66,7 +66,7 @@ export const socialVariants = {
     transition: {
       delay: 0.5,
       duration: 0.4,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   },
 };
@@ -81,7 +81,7 @@ export const badgeVariants = {
     transition: {
       delay: 0.4,
       duration: 0.3,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   },
 };
@@ -95,7 +95,7 @@ export const backgroundVariants = {
     opacity: 1,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   },
 };

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Download } from "lucide-react";
 import { StatsCounter } from "./stats-counter";
 import { stats, availability } from "@/lib/data/about-data";

@@ -2,7 +2,6 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import {
   visualContainerVariant,
   profileImageVariant,
@@ -10,7 +9,6 @@ import {
   statusBadgeVariant,
   statusDotVariant,
 } from "@/lib/animations/hero-animations";
-import { cn } from "@/lib/utils";
 
 export function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);

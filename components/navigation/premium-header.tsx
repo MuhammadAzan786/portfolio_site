@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import Link from "next/link";
 import { HamburgerIcon } from "./hamburger-icon";
 import { MenuOverlay } from "./menu-overlay";

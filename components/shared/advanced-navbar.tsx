@@ -7,8 +7,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { navItems, siteConfig } from "@/constants";
-import { ThemeToggle } from "./theme-toggle";
+import { navItems } from "@/constants";
 
 export function AdvancedNavbar() {
   const pathname = usePathname();

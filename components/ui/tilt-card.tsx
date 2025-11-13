@@ -171,8 +171,8 @@ export function SimpleTiltCard({
  */
 interface ParallaxLayerInternalProps {
   children: React.ReactNode;
-  x: ReturnType<typeof useMotionValue>;
-  y: ReturnType<typeof useMotionValue>;
+  x: ReturnType<typeof useMotionValue<number>>;
+  y: ReturnType<typeof useMotionValue<number>>;
   depth: number;
 }
 

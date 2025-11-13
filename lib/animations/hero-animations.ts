@@ -405,12 +405,12 @@ export function prefersReducedMotion(): boolean {
 export function getSafeAnimationConfig<T extends Variants>(
   variants: T,
   reduceMotion = prefersReducedMotion()
-): T | {} {
+): T {
   if (reduceMotion) {
     return {
       hidden: {},
       visible: {},
-    };
+    } as unknown as T;
   }
   return variants;
 }

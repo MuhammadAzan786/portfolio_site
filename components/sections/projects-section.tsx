@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion, LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
 import { ProjectCard } from "@/components/ui/project-card";
-import { FilterButton } from "@/components/ui/filter-button";
 import { ProjectModal } from "@/components/ui/project-modal";
-import { projects, categories, Project } from "@/lib/projects";
+import { projects, Project } from "@/lib/projects";
 
 /**
  * Minimal Projects Section

@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Heading, Text } from "@/components/ui/typography";
 import { TestimonialCard } from "@/components/ui/testimonial-card";
 import { testimonials } from "@/lib/testimonials";
 

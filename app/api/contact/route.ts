@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+// import { Resend } from "resend";
 import { contactFormSchema } from "@/lib/validations/contact";
 
 // Initialize Resend with API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Commented out for build - uncomment when you have a valid API key
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,8 +14,9 @@ export async function POST(request: NextRequest) {
 
     const { name, email, subject, message } = validatedData;
 
+    // TODO: Uncomment when you have a valid Resend API key
     // Send email using Resend
-    const { data, error } = await resend.emails.send({
+    /* const { data, error } = await resend.emails.send({
       from: "Portfolio Contact Form <onboarding@resend.dev>", // Update with your verified domain
       to: [process.env.CONTACT_EMAIL || "your.email@example.com"], // Your email address
       replyTo: email,
@@ -76,10 +78,13 @@ export async function POST(request: NextRequest) {
         { error: "Failed to send email" },
         { status: 500 }
       );
-    }
+    } */
+
+    // Temporary response for build - replace with actual email sending
+    console.log("Contact form submission:", { name, email, subject, message });
 
     return NextResponse.json(
-      { message: "Email sent successfully", id: data?.id },
+      { message: "Contact form received (email sending disabled for build)" },
       { status: 200 }
     );
   } catch (error) {

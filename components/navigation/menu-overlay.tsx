@@ -10,7 +10,6 @@ import {
   overlayVariants,
   mobileOverlayVariants,
   socialVariants,
-  badgeVariants,
 } from "@/lib/animations/menu-variants";
 import { siteConfig } from "@/constants";
 
@@ -148,10 +147,10 @@ export function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
                     key={social.label}
                     href={social.href}
                     target={
-                      social.href.startsWith("http") ? "_blank" : undefined
+                      social.href?.startsWith("http") ? "_blank" : undefined
                     }
                     rel={
-                      social.href.startsWith("http")
+                      social.href?.startsWith("http")
                         ? "noopener noreferrer"
                         : undefined
                     }
