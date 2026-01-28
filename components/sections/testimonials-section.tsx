@@ -152,10 +152,10 @@ export function TestimonialsSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mx-auto max-w-3xl text-center space-y-4 mb-16"
         >
-          <h2 className="text-3xl font-bold text-gh-text-primary md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold text-gh-text-primary">
             Client Testimonials
           </h2>
-          <p className="text-base leading-relaxed text-gh-text-secondary sm:text-lg">
+          <p className="text-gh-text-secondary">
             Don&apos;t just take my word for it. Here&apos;s what clients have to say about working with me
           </p>
         </motion.div>

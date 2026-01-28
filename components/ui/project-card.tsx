@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, Github } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Project } from "@/lib/projects";
 
 interface ProjectCardProps {
   project: Project;
   delay?: number;
-  onViewDetails: () => void;
 }
 
 /**
@@ -18,8 +18,13 @@ interface ProjectCardProps {
 export function ProjectCard({
   project,
   delay = 0,
-  onViewDetails,
 }: ProjectCardProps) {
+  const router = useRouter();
+
+  const handleViewDetails = () => {
+    router.push(`/projects/${project.id}`);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -30,47 +35,27 @@ export function ProjectCard({
     >
       {/* Card Container */}
       <div
-        className="relative overflow-hidden rounded-lg border border-gh-border-default transition-all duration-300 hover:border-gh-border-emphasis"
+        onClick={handleViewDetails}
+        className="relative overflow-hidden rounded-lg border border-gh-border-default transition-all duration-300 hover:border-gh-border-emphasis hover:shadow-lg cursor-pointer"
         style={{
           background: "linear-gradient(135deg, #161b22 0%, #0d1117 100%)",
         }}
       >
-        {/* Animated gradient orb background effects - Always visible */}
+        {/* Static gradient background - No animations */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          {/* Orange gradient orb */}
-          <motion.div
-            className="absolute -right-16 top-8 h-40 w-40 rounded-full blur-3xl"
+          {/* Static orange glow */}
+          <div
+            className="absolute -right-16 top-8 h-40 w-40 rounded-full blur-2xl opacity-20"
             style={{
-              background: "radial-gradient(circle, rgba(255, 166, 87, 0.4) 0%, transparent 70%)",
-              opacity: 0.5,
-            }}
-            animate={{
-              y: [0, 20, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
+              background: "radial-gradient(circle, rgba(255, 166, 87, 0.6) 0%, transparent 70%)",
             }}
           />
 
-          {/* Blue gradient orb */}
-          <motion.div
-            className="absolute -left-10 bottom-8 h-32 w-32 rounded-full blur-3xl"
+          {/* Static blue glow */}
+          <div
+            className="absolute -left-10 bottom-8 h-32 w-32 rounded-full blur-2xl opacity-20"
             style={{
-              background: "radial-gradient(circle, rgba(88, 166, 255, 0.4) 0%, transparent 70%)",
-              opacity: 0.5,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              scale: [1, 1.15, 1],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5,
+              background: "radial-gradient(circle, rgba(88, 166, 255, 0.6) 0%, transparent 70%)",
             }}
           />
 
@@ -132,12 +117,9 @@ export function ProjectCard({
 
           {/* Actions */}
           <div className="flex items-center gap-3 pt-4">
-            <button
-              onClick={onViewDetails}
-              className="text-sm text-gh-text-secondary hover:text-gh-border-emphasis transition-colors"
-            >
+            <span className="text-sm text-gh-text-secondary group-hover:text-gh-border-emphasis transition-colors">
               View Details →
-            </button>
+            </span>
 
             <div className="flex gap-2 ml-auto">
               {project.githubUrl && (

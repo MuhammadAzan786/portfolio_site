@@ -28,12 +28,12 @@ export function Footer() {
         </p>
 
         {/* Center: Links */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden items-center gap-6 md:flex">
           {footerLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-gh-text-secondary hover:text-gh-text-primary transition-colors"
+              className="text-sm text-gh-text-secondary transition-colors hover:text-gh-text-primary"
             >
               {link.name}
             </Link>
@@ -50,7 +50,7 @@ export function Footer() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gh-text-secondary hover:text-gh-border-emphasis transition-colors"
+                className="text-gh-text-secondary transition-colors hover:text-gh-border-emphasis"
                 aria-label={link.name}
               >
                 <Icon className="h-4 w-4" />

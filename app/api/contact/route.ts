@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-// import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { contactFormSchema } from "@/lib/validations/contact";
-
-// Initialize Resend with API key from environment variables
-// Commented out for build - uncomment when you have a valid API key
-// const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,11 +10,19 @@ export async function POST(request: NextRequest) {
 
     const { name, email, subject, message } = validatedData;
 
-    // TODO: Uncomment when you have a valid Resend API key
-    // Send email using Resend
-    /* const { data, error } = await resend.emails.send({
-      from: "Portfolio Contact Form <onboarding@resend.dev>", // Update with your verified domain
-      to: [process.env.CONTACT_EMAIL || "your.email@example.com"], // Your email address
+    // Create nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // You can use other services like 'hotmail', 'yahoo', etc.
+      auth: {
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS, // Your email password or app password
+      },
+    });
+
+    // Email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER, // Where you want to receive emails
       replyTo: email,
       subject: `Portfolio Contact: ${subject}`,
       html: `
@@ -70,21 +74,13 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
-    });
+    };
 
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json(
-        { error: "Failed to send email" },
-        { status: 500 }
-      );
-    } */
-
-    // Temporary response for build - replace with actual email sending
-    console.log("Contact form submission:", { name, email, subject, message });
+    // Send email
+    await transporter.sendMail(mailOptions);
 
     return NextResponse.json(
-      { message: "Contact form received (email sending disabled for build)" },
+      { message: "Message sent successfully!" },
       { status: 200 }
     );
   } catch (error) {
@@ -96,7 +92,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Failed to send message. Please try again." },
       { status: 500 }
     );
   }

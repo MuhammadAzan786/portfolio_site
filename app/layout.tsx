@@ -8,6 +8,7 @@ import { AdvancedFooter } from "@/components/shared/advanced-footer";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
 import { Toaster } from "@/components/ui/toaster";
 import { GoogleAnalytics } from "@/components/analytics";
+import { SocialFloatingButtons } from "@/components/shared/social-floating-buttons";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default function RootLayout({
             <AdvancedFooter />
           </div>
           <Toaster />
+          <SocialFloatingButtons />
         </ThemeProvider>
         <GoogleAnalytics />
       </body>

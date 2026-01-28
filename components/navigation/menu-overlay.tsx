@@ -19,10 +19,9 @@ interface MenuOverlayProps {
 }
 
 const navigationLinks = [
-  { href: "/#hero", label: "Home" },
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
+  { href: "/#", label: "Home" },
   { href: "/#services", label: "Services" },
+  { href: "/#projects", label: "Projects" },
   { href: "/#contact", label: "Contact" },
 ];
 

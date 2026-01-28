@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { linkVariants } from "@/lib/animations/menu-variants";
 
 interface MenuLinkProps {
@@ -24,6 +25,44 @@ export function MenuLink({
   onClick,
 }: MenuLinkProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Extract section ID from href (e.g., "/#services" -> "services")
+    const hashIndex = href.indexOf("#");
+    if (hashIndex !== -1) {
+      e.preventDefault();
+
+      const sectionId = href.substring(hashIndex + 1);
+      const isHomePage = pathname === "/";
+
+      // Close menu first
+      onClick();
+
+      // If not on home page, navigate to home with hash
+      if (!isHomePage) {
+        router.push(`/${href}`);
+        return;
+      }
+
+      // Scroll to section after a short delay to allow menu to close (only on home page)
+      setTimeout(() => {
+        if (sectionId === "" || sectionId === "hero") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const offsetTop = element.offsetTop - 80; // Account for header height
+            window.scrollTo({ top: offsetTop, behavior: "smooth" });
+          }
+        }
+      }, 300);
+    } else {
+      // Regular link, just close menu
+      onClick();
+    }
+  };
 
   return (
     <motion.div
@@ -33,7 +72,7 @@ export function MenuLink({
     >
       <Link
         href={href}
-        onClick={onClick}
+        onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="group relative block cursor-pointer py-2 text-center"

@@ -25,19 +25,19 @@ export const siteConfig: SiteConfig = {
 export const navItems: NavItem[] = [
   {
     title: "Home",
-    href: "/",
+    href: "#",
   },
   {
-    title: "About",
-    href: "/about",
+    title: "Services",
+    href: "#services",
   },
   {
     title: "Projects",
-    href: "/projects",
+    href: "#projects",
   },
   {
     title: "Contact",
-    href: "/contact",
+    href: "#contact",
   },
 ];
 

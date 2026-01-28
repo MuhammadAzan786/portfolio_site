@@ -3,39 +3,29 @@
 import { useState, useEffect } from "react";
 import { motion, useScroll } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { HamburgerIcon } from "./hamburger-icon";
 import { MenuOverlay } from "./menu-overlay";
-import { siteConfig } from "@/constants";
+import { siteConfig, navItems } from "@/constants";
 
 /**
- * Premium Minimal Header
- * Features: Logo with gradient hover, hamburger menu, hide on scroll down
+ * Professional Clean Header
+ * Features: Clean navigation, responsive design
  */
 export function PremiumHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  // Hide header on scroll down, show on scroll up
+  // Add subtle shadow on scroll
   useEffect(() => {
-    let lastScrollY = 0;
-
-    const updateScrollDirection = (latest: number) => {
-      if (latest < 80) {
-        setIsHidden(false);
-        return;
-      }
-
-      if (latest > lastScrollY && latest > 80) {
-        setIsHidden(true);
-      } else if (latest < lastScrollY) {
-        setIsHidden(false);
-      }
-
-      lastScrollY = latest;
+    const updateScroll = (latest: number) => {
+      setIsScrolled(latest > 20);
     };
 
-    const unsubscribe = scrollY.on("change", updateScrollDirection);
+    const unsubscribe = scrollY.on("change", updateScroll);
     return () => unsubscribe();
   }, [scrollY]);
 
@@ -47,39 +37,81 @@ export function PremiumHeader() {
     setIsMenuOpen(false);
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If it's a section link (starts with #)
+    if (href.startsWith("#")) {
+      e.preventDefault();
+
+      // Check if we're on the home page
+      const isHomePage = pathname === "/";
+
+      // Scroll to top for home
+      if (href === "#") {
+        if (isHomePage) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          router.push("/");
+        }
+        return;
+      }
+
+      // If not on home page, navigate to home with hash
+      if (!isHomePage) {
+        router.push(`/${href}`);
+        return;
+      }
+
+      // Scroll to section (only on home page)
+      const sectionId = href.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offsetTop = element.offsetTop - 80; // Account for header height
+        window.scrollTo({ top: offsetTop, behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <>
       <motion.header
         initial={{ y: 0 }}
-        animate={{ y: isHidden && !isMenuOpen ? -100 : 0 }}
-        transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
-        className="fixed left-0 right-0 top-0 z-50 border-b border-gh-border-default bg-gh-canvas-default/80 backdrop-blur-lg"
+        className={`fixed left-0 right-0 top-0 z-50 bg-gh-canvas-default/95 backdrop-blur-md transition-all duration-300 ${
+          isScrolled ? "border-b border-gh-border-default shadow-sm" : ""
+        }`}
       >
-        <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-12">
-          {/* Logo / Name */}
-          <Link
-            href="/"
-            className="group relative text-xl font-bold text-gh-text-primary transition-all duration-300"
-          >
-            <span className="relative z-10">{siteConfig.author.name}</span>
-
-            {/* Gradient hover effect */}
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-gh-text-link via-gh-text-link-hover to-purple-500 bg-clip-text text-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              aria-hidden="true"
-            >
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Left side: Name */}
+          <Link href="/" className="group">
+            <span className="text-lg font-semibold text-gh-text-primary transition-colors group-hover:text-blue-600">
               {siteConfig.author.name}
-            </motion.span>
+            </span>
           </Link>
 
-          {/* Right side: Hamburger Icon */}
-          <div className="flex items-center gap-4">
-            <HamburgerIcon isOpen={isMenuOpen} onClick={toggleMenu} />
+          {/* Right side: Desktop Navigation + Mobile Menu */}
+          <div className="flex items-center gap-6">
+            {/* Desktop Navigation - Hidden on mobile */}
+            <nav className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="px-3 py-2 text-sm font-medium text-gh-text-secondary transition-colors hover:text-gh-text-primary hover:bg-gh-canvas-subtle rounded-md"
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Mobile Hamburger - Shown on mobile */}
+            <div className="md:hidden">
+              <HamburgerIcon isOpen={isMenuOpen} onClick={toggleMenu} />
+            </div>
           </div>
         </div>
       </motion.header>
 
-      {/* Full-screen Menu Overlay */}
+      {/* Full-screen Menu Overlay - Mobile only */}
       <MenuOverlay isOpen={isMenuOpen} onClose={closeMenu} />
     </>
   );

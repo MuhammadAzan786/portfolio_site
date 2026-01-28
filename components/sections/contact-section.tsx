@@ -41,10 +41,10 @@ export function ContactSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mx-auto max-w-3xl text-center space-y-4 mb-16"
         >
-          <h2 className="text-3xl font-bold text-gh-text-primary md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold text-gh-text-primary">
             Let&apos;s Work Together
           </h2>
-          <p className="text-base leading-relaxed text-gh-text-secondary sm:text-lg">
+          <p className="text-gh-text-secondary">
             Have a project in mind? I&apos;m always open to discussing new opportunities and creative ideas.
           </p>
         </motion.div>

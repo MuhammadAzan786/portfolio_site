@@ -4,110 +4,42 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
   Code2,
-  Server,
-  Smartphone,
-  Palette,
-  Database,
-  Cloud,
+  Brain,
   ChevronRight,
   X,
 } from "lucide-react";
 
 const services = [
   {
+    icon: Brain,
+    title: "AI & Machine Learning",
+    description:
+      "Building intelligent solutions with cutting-edge AI and machine learning technologies for automated, data-driven applications.",
+    skills: [
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "OpenAI API",
+      "LangChain",
+      "NLP",
+      "Computer Vision",
+      "ML Model Training",
+    ],
+  },
+  {
     icon: Code2,
-    title: "Web Development",
+    title: "Full Stack Development",
     description:
       "Building modern, responsive web applications with cutting-edge technologies and best practices.",
     skills: [
       "React",
       "Next.js",
       "TypeScript",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "Framer Motion",
-      "Redux",
-      "React Query",
-    ],
-  },
-  {
-    icon: Server,
-    title: "Backend Development",
-    description:
-      "Creating scalable and secure server-side solutions with robust APIs and microservices architecture.",
-    skills: [
       "Node.js",
-      "Express",
-      "NestJS",
-      "GraphQL",
-      "REST APIs",
-      "Microservices",
-      "WebSockets",
-      "JWT Auth",
-    ],
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Development",
-    description:
-      "Developing cross-platform mobile applications that deliver native performance and user experience.",
-    skills: [
-      "React Native",
-      "Expo",
-      "iOS Development",
-      "Android Development",
-      "Mobile UI/UX",
-      "App Optimization",
-      "Push Notifications",
-      "App Store Deployment",
-    ],
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    description:
-      "Designing beautiful, intuitive interfaces that enhance user engagement and satisfaction.",
-    skills: [
-      "Figma",
-      "Adobe XD",
-      "Wireframing",
-      "Prototyping",
-      "Design Systems",
-      "User Research",
-      "Responsive Design",
-      "Accessibility",
-    ],
-  },
-  {
-    icon: Database,
-    title: "Database Solutions",
-    description:
-      "Implementing efficient database systems for optimal data storage, retrieval, and management.",
-    skills: [
+      "Tailwind CSS",
       "PostgreSQL",
-      "MongoDB",
-      "MySQL",
-      "Prisma ORM",
-      "Redis",
-      "Database Design",
-      "Query Optimization",
-      "Data Modeling",
-    ],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    description:
-      "Deploying and maintaining applications with modern cloud infrastructure and CI/CD pipelines.",
-    skills: [
       "AWS",
-      "Docker",
-      "Kubernetes",
-      "CI/CD",
-      "GitHub Actions",
-      "Vercel",
-      "Nginx",
-      "Monitoring",
+      "REST APIs",
     ],
   },
 ];
@@ -150,16 +82,16 @@ export function ServicesSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mx-auto max-w-3xl text-center space-y-4 mb-16"
         >
-          <h2 className="text-3xl font-bold text-gh-text-primary md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold text-gh-text-primary">
             Services & Expertise
           </h2>
-          <p className="text-base leading-relaxed text-gh-text-secondary sm:text-lg">
+          <p className="text-gh-text-secondary">
             Comprehensive solutions to bring your digital vision to life
           </p>
         </motion.div>
 
         {/* Services Grid - Simple cards */}
-        <div className="mx-auto max-w-5xl grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto max-w-4xl grid gap-8 sm:grid-cols-2">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
